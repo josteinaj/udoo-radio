@@ -1,0 +1,11 @@
+<template name="webradioChannel">
+  <div class="webradio-channel">
+    <div class="webradio-channel-content">
+      <h3><a href="{{url}}">{{title}}</a><span>{{domain}}</span></h3>
+      <audio controls="">
+        <source src="{{url}}" type="audio/mpeg" />
+        <em>Sorry, your browser doesn't support HTML5 audio.</em>
+      </audio>
+    </div>
+  </div>
+</template>

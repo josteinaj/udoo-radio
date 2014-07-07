@@ -6,6 +6,5 @@
 standard-app-packages
 autopublish
 insecure
-less
-less-bootstrap-3
-less-fontawesome-4
+bootstrap
+modernizr-meteor
