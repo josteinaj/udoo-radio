@@ -2,7 +2,7 @@ Router.configure({
   layoutTemplate: 'layout',
   loadingTemplate: 'loading',
   waitOn: function() { 
-    return [Meteor.subscribe('notifications')]
+    return []
   }
 });
 
@@ -64,8 +64,7 @@ Router.map(function() {
     path: '/channels/:_id',
     waitOn: function() {
       return [
-        Meteor.subscribe('singleChannel', this.params._id),
-        Meteor.subscribe('comments', this.params._id)
+        Meteor.subscribe('singleChannel', this.params._id)
       ];
     },
     data: function() { return Channels.findOne(this.params._id); }

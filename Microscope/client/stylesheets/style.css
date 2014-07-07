@@ -1,4 +1,4 @@
-.grid-block, .main, .channel, .comments li, .comment-form {
+.grid-block, .main, .channel {
   background: #fff;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -76,20 +76,6 @@ body {
     display: block;
     float: right;
     margin-top: 7px; }
-
-.comments {
-  list-style-type: none;
-  margin: 0; }
-  .comments li h4 {
-    font-size: 16px;
-    margin: 0; }
-    .comments li h4 .date {
-      font-size: 12px;
-      font-weight: normal; }
-    .comments li h4 a {
-      font-size: 12px; }
-  .comments li p:last-child {
-    margin-bottom: 0; }
 
 .dropdown-menu span {
   display: block;
