@@ -6,80 +6,80 @@ Router.configure({
   }
 });
 
-PostsListController = RouteController.extend({
-  template: 'postsList',
+ChannelsListController = RouteController.extend({
+  template: 'channelsList',
   increment: 5, 
   limit: function() { 
-    return parseInt(this.params.postsLimit) || this.increment; 
+    return parseInt(this.params.channelsLimit) || this.increment; 
   },
   findOptions: function() {
     return {sort: this.sort, limit: this.limit()};
   },
   waitOn: function() {
-    return Meteor.subscribe('posts', this.findOptions());
+    return Meteor.subscribe('channels', this.findOptions());
   },
-  posts: function() {
-    return Posts.find({}, this.findOptions());
+  channels: function() {
+    return Channels.find({}, this.findOptions());
   },
   data: function() {
-    var hasMore = this.posts().count() === this.limit();
+    var hasMore = this.channels().count() === this.limit();
     return {
-      posts: this.posts(),
+      channels: this.channels(),
       nextPath: hasMore ? this.nextPath() : null
     };
   }
 });
 
-NewPostsListController = PostsListController.extend({
+NewChannelsListController = ChannelsListController.extend({
   sort: {submitted: -1, _id: -1},
   nextPath: function() {
-    return Router.routes.newPosts.path({postsLimit: this.limit() + this.increment})
+    return Router.routes.newChannels.path({channelsLimit: this.limit() + this.increment})
   }
 });
 
-BestPostsListController = PostsListController.extend({
+BestChannelsListController = ChannelsListController.extend({
   sort: {votes: -1, submitted: -1, _id: -1},
   nextPath: function() {
-    return Router.routes.bestPosts.path({postsLimit: this.limit() + this.increment})
+    return Router.routes.bestChannels.path({channelsLimit: this.limit() + this.increment})
   }
 });
 
 Router.map(function() {
   this.route('home', {
     path: '/',
-    controller: NewPostsListController
+    controller: NewChannelsListController
   });
   
-  this.route('newPosts', {
-    path: '/new/:postsLimit?',
-    controller: NewPostsListController
+  this.route('newChannels', {
+    path: '/new/:channelsLimit?',
+    controller: NewChannelsListController
   });
   
-  this.route('bestPosts', {
-    path: '/best/:postsLimit?',
-    controller: BestPostsListController
+  this.route('bestChannels', {
+    path: '/best/:channelsLimit?',
+    controller: BestChannelsListController
   });
   
-  this.route('postPage', {
-    path: '/posts/:_id',
+  this.route('channelPage', {
+    path: '/channels/:_id',
     waitOn: function() {
       return [
-        Meteor.subscribe('singlePost', this.params._id),
+        Meteor.subscribe('singleChannel', this.params._id),
         Meteor.subscribe('comments', this.params._id)
       ];
     },
-    data: function() { return Posts.findOne(this.params._id); }
+    data: function() { return Channels.findOne(this.params._id); }
   });
 
-  this.route('postEdit', {
-    path: '/posts/:_id/edit',
+  this.route('channelEdit', {
+    path: '/channels/:_id/edit',
     waitOn: function() { 
-      return Meteor.subscribe('singlePost', this.params._id);
+      return Meteor.subscribe('singleChannel', this.params._id);
     },
-    data: function() { return Posts.findOne(this.params._id); }
+    data: function() { return Channels.findOne(this.params._id); }
   });
   
-  this.route('postSubmit', {
+  this.route('channelSubmit', {
     path: '/submit',
     progress: {enabled: false}
   });
@@ -98,5 +98,5 @@ var requireLogin = function(pause) {
 }
 
 Router.onBeforeAction('loading');
-Router.onBeforeAction(requireLogin, {only: 'postSubmit'});
+Router.onBeforeAction(requireLogin, {only: 'channelSubmit'});
 Router.onBeforeAction(function() { clearErrors() });

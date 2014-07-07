@@ -1,14 +1,14 @@
-Meteor.publish('posts', function(options) {
-  return Posts.find({}, options);
+Meteor.publish('channels', function(options) {
+  return Channels.find({}, options);
 });
 
-Meteor.publish('singlePost', function(id) {
-  return id && Posts.find(id);
+Meteor.publish('singleChannel', function(id) {
+  return id && Channels.find(id);
 });
 
 
-Meteor.publish('comments', function(postId) {
-  return Comments.find({postId: postId});
+Meteor.publish('comments', function(channelId) {
+  return Comments.find({channelId: channelId});
 });
 
 Meteor.publish('notifications', function() {

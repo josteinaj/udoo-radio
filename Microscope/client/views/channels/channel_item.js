@@ -1,8 +1,8 @@
-var POST_HEIGHT = 80;
+var CHANNEL_HEIGHT = 80;
 var Positions = new Meteor.Collection(null);
 
-Template.postItem.helpers({
-  ownPost: function() {
+Template.channelItem.helpers({
+  ownChannel: function() {
     return this.userId == Meteor.userId();
   },
   domain: function() {
@@ -19,28 +19,28 @@ Template.postItem.helpers({
     }
   },
   attributes: function() {
-    var post = _.extend({}, Positions.findOne({postId: this._id}), this);
-    var newPosition = post._rank * POST_HEIGHT;
+    var channel = _.extend({}, Positions.findOne({channelId: this._id}), this);
+    var newPosition = channel._rank * CHANNEL_HEIGHT;
     var attributes = {};
     
-    if (_.isUndefined(post.position)) {
-      attributes.class = 'post invisible';
+    if (_.isUndefined(channel.position)) {
+      attributes.class = 'channel invisible';
     } else {
-      var delta = post.position - newPosition;      
+      var delta = channel.position - newPosition;      
       attributes.style = "top: " + delta + "px";
       if (delta === 0)
-        attributes.class = "post animate"
+        attributes.class = "channel animate"
     }
     
     Meteor.setTimeout(function() {
-      Positions.upsert({postId: post._id}, {$set: {position: newPosition}})
+      Positions.upsert({channelId: channel._id}, {$set: {position: newPosition}})
     });
     
     return attributes;
   }
 });
 
-Template.postItem.events({
+Template.channelItem.events({
   'click .upvotable': function(e) {
     e.preventDefault();
     Meteor.call('upvote', this._id);

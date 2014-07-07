@@ -5,13 +5,14 @@
       "iron-router": {},
       "spin": {},
       "accounts-ui-bootstrap-dropdown": {},
-      "iron-router-progress": {}
+      "iron-router-progress": {},
+      "modernizr-meteor": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.7.0",
-        "commit": "05f34bc48c4cad9fdaa366c1ddcabe6980232ece"
+        "tag": "v0.7.1",
+        "commit": "d1ffb3f06ea4c112132b030f2eb1a70b81675ecb"
       },
       "spin": {
         "git": "https://github.com/SachaG/meteor-spin.git",
@@ -25,13 +26,18 @@
       },
       "iron-router-progress": {
         "git": "https://github.com/Multiply/iron-router-progress.git",
-        "tag": "v0.3.1",
-        "commit": "3f7900feb4bb70a1289b39a1fdcd1f438c0335b3"
+        "tag": "v0.4.1",
+        "commit": "496fcda9a6ec352b4733725f60c6f280250c3541"
+      },
+      "modernizr-meteor": {
+        "git": "https://github.com/ckir/modernizr-meteor.git",
+        "tag": "v2.6.2",
+        "commit": "391ca2a3beff3cd2b0e1099cb2d744b5a2e8a73e"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
-        "tag": "v0.2.2",
-        "commit": "8bc53798fe5965669ae67c72f91829fcfdceabfd"
+        "tag": "v0.2.4",
+        "commit": "b40e9b0612329288d75cf52ad14a7da64bb8618f"
       }
     }
   }

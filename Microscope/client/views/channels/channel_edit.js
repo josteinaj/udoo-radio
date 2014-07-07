@@ -1,20 +1,20 @@
-Template.postEdit.events({
+Template.channelEdit.events({
   'submit form': function(e) {
     e.preventDefault();
     
-    var currentPostId = this._id;
+    var currentChannelId = this._id;
     
-    var postProperties = {
+    var channelProperties = {
       url: $(e.target).find('[name=url]').val(),
       title: $(e.target).find('[name=title]').val()
     }
     
-    Posts.update(currentPostId, {$set: postProperties}, function(error) {
+    Channels.update(currentChannelId, {$set: channelProperties}, function(error) {
       if (error) {
         // display the error to the user
         throwError(error.reason);
       } else {
-        Router.go('postPage', {_id: currentPostId});
+        Router.go('channelPage', {_id: currentChannelId});
       }
     });
   },
@@ -22,9 +22,9 @@ Template.postEdit.events({
   'click .delete': function(e) {
     e.preventDefault();
     
-    if (confirm("Delete this post?")) {
-      var currentPostId = this._id;
-      Posts.remove(currentPostId);
+    if (confirm("Delete this channel?")) {
+      var currentChannelId = this._id;
+      Channels.remove(currentChannelId);
       Router.go('home');
     }
   }

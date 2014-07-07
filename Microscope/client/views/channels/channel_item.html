@@ -1,0 +1,15 @@
+<template name="channelItem">
+  <div class="channel" {{attributes}}>
+    <a href="#" class="upvote btn {{upvotedClass}}">⬆</a>
+    <div class="channel-content">
+      <h3><a href="{{url}}">{{title}}</a><span>{{domain}}</span></h3>
+      <p>
+        {{pluralize votes "Vote"}},
+        submitted by {{author}},
+        <a href="{{pathFor 'channelPage'}}">{{pluralize commentsCount "comment"}}</a>
+        {{#if ownChannel}}<a href="{{pathFor 'channelEdit'}}">Edit</a>{{/if}}
+      </p>
+    </div>
+    <a href="{{pathFor 'channelPage'}}" class="discuss btn">Discuss</a>
+  </div>
+</template>

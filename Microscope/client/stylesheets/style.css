@@ -1,4 +1,4 @@
-.grid-block, .main, .post, .comments li, .comment-form {
+.grid-block, .main, .channel, .comments li, .comment-form {
   background: #fff;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -28,51 +28,51 @@ body {
 #spinner {
   height: 300px; }
 
-.post {
+.channel {
   /* For modern browsers */
   /* For IE 6/7 (trigger hasLayout) */
   *zoom: 1;
   position: relative;
   opacity: 1; }
-  .post:before, .post:after {
+  .channel:before, .channel:after {
     content: "";
     display: table; }
-  .post:after {
+  .channel:after {
     clear: both; }
-  .post.invisible {
+  .channel.invisible {
     opacity: 0; }
-  .post.instant {
+  .channel.instant {
     -webkit-transition: none;
     -moz-transition: none;
     -o-transition: none;
     transition: none; }
-  .post.animate{
+  .channel.animate{
     -webkit-transition: all 300ms 0ms;
     -webkit-transition-delay: ease-in;
     -moz-transition: all 300ms 0ms ease-in;
     -o-transition: all 300ms 0ms ease-in;
     transition: all 300ms 0ms ease-in; }
-  .post .upvote {
+  .channel .upvote {
     display: block;
     margin: 7px 12px 0 0;
     float: left; }
-  .post .post-content {
+  .channel .channel-content {
     float: left; }
-    .post .post-content h3 {
+    .channel .channel-content h3 {
       margin: 0;
       line-height: 1.4;
       font-size: 18px; }
-      .post .post-content h3 a {
+      .channel .channel-content h3 a {
         display: inline-block;
         margin-right: 5px; }
-      .post .post-content h3 span {
+      .channel .channel-content h3 span {
         font-weight: normal;
         font-size: 14px;
         display: inline-block;
         color: #aaaaaa; }
-    .post .post-content p {
+    .channel .channel-content p {
       margin: 0; }
-  .post .discuss {
+  .channel .discuss {
     display: block;
     float: right;
     margin-top: 7px; }

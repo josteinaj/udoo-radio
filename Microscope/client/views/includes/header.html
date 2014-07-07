@@ -9,15 +9,15 @@
       <a class="brand" href="{{pathFor 'home'}}">Microscope</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li class="{{activeRouteClass 'home' 'newPosts'}}">
-            <a href="{{pathFor 'newPosts'}}">New</a>
+          <li class="{{activeRouteClass 'home' 'newChannels'}}">
+            <a href="{{pathFor 'newChannels'}}">New</a>
           </li>
-          <li class="{{activeRouteClass  'bestPosts'}}">
-            <a href="{{pathFor 'bestPosts'}}">Best</a>
+          <li class="{{activeRouteClass  'bestChannels'}}">
+            <a href="{{pathFor 'bestChannels'}}">Best</a>
           </li>
           {{#if currentUser}}
-            <li class="{{activeRouteClass 'postSubmit'}}">
-              <a href="{{pathFor 'postSubmit'}}">Submit Post</a>
+            <li class="{{activeRouteClass 'channelSubmit'}}">
+              <a href="{{pathFor 'channelSubmit'}}">Submit Channel</a>
             </li>
             <li class="dropdown">
               {{> notifications}}

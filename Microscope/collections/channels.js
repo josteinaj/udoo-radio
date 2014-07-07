@@ -1,39 +1,39 @@
-Posts = new Meteor.Collection('posts');
+Channels = new Meteor.Collection('channels');
 
-Posts.allow({
+Channels.allow({
   update: ownsDocument,
   remove: ownsDocument
 });
 
-Posts.deny({
-  update: function(userId, post, fieldNames) {
+Channels.deny({
+  update: function(userId, channel, fieldNames) {
     // may only edit the following two fields:
     return (_.without(fieldNames, 'url', 'title').length > 0);
   }
 });
 
 Meteor.methods({
-  post: function(postAttributes) {
+  channel: function(channelAttributes) {
     var user = Meteor.user(),
-      postWithSameLink = Posts.findOne({url: postAttributes.url});
+      channelWithSameLink = Channels.findOne({url: channelAttributes.url});
     
     // ensure the user is logged in
     if (!user)
-      throw new Meteor.Error(401, "You need to login to post new stories");
+      throw new Meteor.Error(401, "You need to login to channel new stories");
     
-    // ensure the post has a title
-    if (!postAttributes.title)
+    // ensure the channel has a title
+    if (!channelAttributes.title)
       throw new Meteor.Error(422, 'Please fill in a headline');
     
-    // check that there are no previous posts with the same link
-    if (postAttributes.url && postWithSameLink) {
+    // check that there are no previous channels with the same link
+    if (channelAttributes.url && channelWithSameLink) {
       throw new Meteor.Error(302, 
-        'This link has already been posted', 
-        postWithSameLink._id);
+        'This link has already been channeled', 
+        channelWithSameLink._id);
     }
     
     // pick out the whitelisted keys
-    var post = _.extend(_.pick(postAttributes, 'url', 'title', 'message'), {
+    var channel = _.extend(_.pick(channelAttributes, 'url', 'title', 'message'), {
       userId: user._id, 
       author: user.username, 
       submitted: new Date().getTime(),
@@ -41,19 +41,19 @@ Meteor.methods({
       upvoters: [], votes: 0
     });
     
-    var postId = Posts.insert(post);
+    var channelId = Channels.insert(channel);
     
-    return postId;
+    return channelId;
   },
   
-  upvote: function(postId) {
+  upvote: function(channelId) {
     var user = Meteor.user();
     // ensure the user is logged in
     if (!user)
       throw new Meteor.Error(401, "You need to login to upvote");
     
-    Posts.update({
-      _id: postId, 
+    Channels.update({
+      _id: channelId, 
       upvoters: {$ne: user._id}
     }, {
       $addToSet: {upvoters: user._id},

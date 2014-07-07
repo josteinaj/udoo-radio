@@ -1,5 +1,5 @@
 // Fixture data 
-if (Posts.find().count() === 0) {
+if (Channels.find().count() === 0) {
   var now = new Date().getTime();
   
   // create two users
@@ -12,7 +12,7 @@ if (Posts.find().count() === 0) {
   });
   var sacha = Meteor.users.findOne(sachaId);
   
-  var telescopeId = Posts.insert({
+  var telescopeId = Channels.insert({
     title: 'Introducing Telescope',
     userId: sacha._id,
     author: sacha.profile.name,
@@ -23,7 +23,7 @@ if (Posts.find().count() === 0) {
   });
   
   Comments.insert({
-    postId: telescopeId,
+    channelId: telescopeId,
     userId: tom._id,
     author: tom.profile.name,
     submitted: now - 5 * 3600 * 1000,
@@ -31,14 +31,14 @@ if (Posts.find().count() === 0) {
   });
   
   Comments.insert({
-    postId: telescopeId,
+    channelId: telescopeId,
     userId: sacha._id,
     author: sacha.profile.name,
     submitted: now - 3 * 3600 * 1000,
     body: 'You sure can Tom!'
   });
   
-  Posts.insert({
+  Channels.insert({
     title: 'Meteor',
     userId: tom._id,
     author: tom.profile.name,
@@ -48,7 +48,7 @@ if (Posts.find().count() === 0) {
     upvoters: [], votes: 0
   });
   
-  Posts.insert({
+  Channels.insert({
     title: 'The Meteor Book',
     userId: tom._id,
     author: tom.profile.name,
@@ -59,8 +59,8 @@ if (Posts.find().count() === 0) {
   });
   
   for (var i = 0; i < 10; i++) {
-    Posts.insert({
-      title: 'Test post #' + i,
+    Channels.insert({
+      title: 'Test channel #' + i,
       author: sacha.profile.name,
       userId: sacha._id,
       url: 'http://google.com/?q=test-' + i,

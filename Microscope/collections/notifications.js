@@ -5,11 +5,11 @@ Notifications.allow({
 });
 
 createCommentNotification = function(comment) {
-  var post = Posts.findOne(comment.postId);
-  if (comment.userId !== post.userId) {
+  var channel = Channels.findOne(comment.channelId);
+  if (comment.userId !== channel.userId) {
     Notifications.insert({
-      userId: post.userId,
-      postId: post._id,
+      userId: channel.userId,
+      channelId: channel._id,
       commentId: comment._id,
       commenterName: comment.author,
       read: false
