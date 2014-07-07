@@ -10,14 +10,6 @@ Template.channelItem.helpers({
     a.href = this.url;
     return a.hostname;
   },
-  upvotedClass: function() {
-    var userId = Meteor.userId();
-    if (userId && !_.include(this.upvoters, userId)) {
-      return 'btn-primary upvotable';
-    } else {
-      return 'disabled';
-    }
-  },
   attributes: function() {
     var channel = _.extend({}, Positions.findOne({channelId: this._id}), this);
     var newPosition = channel._rank * CHANNEL_HEIGHT;
@@ -41,8 +33,4 @@ Template.channelItem.helpers({
 });
 
 Template.channelItem.events({
-  'click .upvotable': function(e) {
-    e.preventDefault();
-    Meteor.call('upvote', this._id);
-  }
 });

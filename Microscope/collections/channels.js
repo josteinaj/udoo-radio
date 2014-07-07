@@ -19,44 +19,26 @@ Meteor.methods({
     
     // ensure the user is logged in
     if (!user)
-      throw new Meteor.Error(401, "You need to login to channel new stories");
+      throw new Meteor.Error(401, "You need to login to add new channels");
     
     // ensure the channel has a title
     if (!channelAttributes.title)
-      throw new Meteor.Error(422, 'Please fill in a headline');
+      throw new Meteor.Error(422, 'Please fill in a channel title');
     
     // check that there are no previous channels with the same link
     if (channelAttributes.url && channelWithSameLink) {
       throw new Meteor.Error(302, 
-        'This link has already been channeled', 
+        'This channel link has already been added', 
         channelWithSameLink._id);
     }
     
     // pick out the whitelisted keys
     var channel = _.extend(_.pick(channelAttributes, 'url', 'title', 'message'), {
-      userId: user._id, 
-      author: user.username, 
-      submitted: new Date().getTime(),
-      upvoters: [], votes: 0
+      submitted: new Date().getTime()
     });
     
     var channelId = Channels.insert(channel);
     
     return channelId;
-  },
-  
-  upvote: function(channelId) {
-    var user = Meteor.user();
-    // ensure the user is logged in
-    if (!user)
-      throw new Meteor.Error(401, "You need to login to upvote");
-    
-    Channels.update({
-      _id: channelId, 
-      upvoters: {$ne: user._id}
-    }, {
-      $addToSet: {upvoters: user._id},
-      $inc: {votes: 1}
-    });
   }
 });

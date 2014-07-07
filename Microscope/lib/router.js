@@ -38,7 +38,7 @@ NewChannelsListController = ChannelsListController.extend({
 });
 
 BestChannelsListController = ChannelsListController.extend({
-  sort: {votes: -1, submitted: -1, _id: -1},
+  sort: {submitted: -1, _id: -1},
   nextPath: function() {
     return Router.routes.bestChannels.path({channelsLimit: this.limit() + this.increment})
   }
