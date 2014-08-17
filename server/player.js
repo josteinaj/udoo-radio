@@ -3,12 +3,22 @@ Meteor.publish('player', function() {
 });
 
 Meteor.methods({
-  'play': function(url) {
+  'play': function(channelId) {
     var player = Player.findOne();
-    url = url || player.url;
-    Player.update(player._id, {$set: {playing:true}});
-    VLC.play(url);
-    console.log("server/player.js: play: "+url);
+    var channel;
+    console.log("server/player.js: play: "+channelId);
+    if (channelId) {
+      channel = Channels.findOne({_id: channelId});
+      if (channel) {
+        Player.update(player._id, {$set: {channel:channel._id, url:channel.url, playing:true}});
+        VLC.play(channel.url);
+      } else {
+        console.log("server/player.js: no such channel: "+channelId);
+      }
+    } else {
+      Player.update(player._id, {$set: {playing:true}});
+      VLC.play(player.url);
+    }
     return player;
   },
   'stop': function() {
@@ -27,9 +37,6 @@ Meteor.startup(function(){
                 console.log("server/player.js: VLC.on('stop', ...)");
                 console.log(Player.update(player._id, {$set: {playing:false}}));
                 console.log(Player.findOne());
-                setTimeout(Meteor.bindEnvironment(function(){
-                  console.log(Player.findOne());
-                }),1000);
             })
     );
 });

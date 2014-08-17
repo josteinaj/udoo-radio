@@ -3,8 +3,13 @@ var Positions = new Meteor.Collection(null);
 
 Template.channelItem.helpers({
     playPauseButtonTitle: function() {
+        var player = Player.findOne();
         console.log("client/views/channels/channel_item.js: playPauseButtonTitle");
-        return this.playing === true ? "Stop" : "Play";
+        if (player.playing === true && player.channel === this._id) {
+            return "Stop";
+        } else {
+            return "Play";
+        }
     },
     ownChannel: function() {
         return this.userId == Meteor.userId();
@@ -37,6 +42,27 @@ Template.channelItem.helpers({
 });
 
 Template.channelItem.events({
+    'click .channel-playbutton': function(e) {
+        var player;
+        e.preventDefault();
+        player = Player.findOne();
+        console.log("client/views/channels/channel_item.js: click .channel-playbutton");
+        
+        if (player.playing === true) {
+            Meteor.call(
+                        'stop',
+                        Meteor.bindEnvironment(function (error, result) {
+                            console.log("client/views/channels/channel_item.js: called 'stop'",error,result);
+                        })
+            );
+        } else {
+            Meteor.call(
+                        'play',
+                        this._id,
+                        Meteor.bindEnvironment(function (error, result) {
+                            console.log("client/views/channels/channel_item.js: called 'play'",error,result);
+                        })
+            );
+        }
+    }
 });
-
-//VLC.play("http://lyd.nrk.no/nrk_radio_p13_mp3_h");

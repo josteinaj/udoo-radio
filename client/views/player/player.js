@@ -2,18 +2,30 @@ Template.player.helpers({
     playPauseButtonTitle: function() {
         console.log("client/views/player/player.js: playPauseButtonTitle");
         return this.playing === true ? "Stop" : "Play";
+    },
+    title: function() {
+        var channel;
+        console.log("client/views/player/player.js: title");
+        if (this._id === null) {
+            return "---";
+        } else {
+            channel = Channels.findOne({_id: this.channel});
+            console.log(channel, Channels.findOne());
+            if (channel) {
+                return channel.title;
+            } else {
+                return "- -"
+            }
+        }
     }
 });
 
 Template.player.events({
   'click #playbutton': function(e) {
-    console.log("client/views/player/player.js: click #playbutton");
-    var player = Player.findOne();
-    console.log(player);
-    var playButton = document.getElementById("playbutton");
-    console.log(playButton);
-    
+    var player;
     e.preventDefault();
+    player = Player.findOne();
+    console.log("client/views/player/player.js: click #playbutton");
     
     if (player.playing === true) {
         Meteor.call(
@@ -25,7 +37,7 @@ Template.player.events({
     } else {
         Meteor.call(
                     'play',
-                    player.url,
+                    player.channel,
                     Meteor.bindEnvironment(function (error, result) {
                         console.log("client/views/player/player.js: called 'play'",error,result);
                     })
