@@ -6,14 +6,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="{{pathFor 'home'}}">Tandberg Sølvsuper 5 De Luxe</a>
+      <a class="brand" href="{{pathFor 'player'}}">Tandberg Sølvsuper 5 De Luxe</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
-          <li class="{{activeRouteClass 'home' 'newChannels'}}">
-            <a href="{{pathFor 'newChannels'}}">New</a>
+          <li class="{{activeRouteClass 'player'}}">
+            <a href="{{pathFor 'player'}}">Player</a>
           </li>
-          <li class="{{activeRouteClass  'bestChannels'}}">
-            <a href="{{pathFor 'bestChannels'}}">Best</a>
+          <li class="{{activeRouteClass  'channels'}}">
+            <a href="{{pathFor 'channels'}}">Channels</a>
           </li>
           {{#if currentUser}}
             <li class="{{activeRouteClass 'channelSubmit'}}">

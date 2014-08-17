@@ -30,34 +30,27 @@ ChannelsListController = RouteController.extend({
   }
 });
 
-NewChannelsListController = ChannelsListController.extend({
+ChannelsListController = ChannelsListController.extend({
   sort: {submitted: -1, _id: -1},
   nextPath: function() {
-    return Router.routes.newChannels.path({channelsLimit: this.limit() + this.increment})
-  }
-});
-
-BestChannelsListController = ChannelsListController.extend({
-  sort: {submitted: -1, _id: -1},
-  nextPath: function() {
-    return Router.routes.bestChannels.path({channelsLimit: this.limit() + this.increment})
+    return Router.routes.channels.path({channelsLimit: this.limit() + this.increment})
   }
 });
 
 Router.map(function() {
-  this.route('home', {
+  this.route('player', {
     path: '/',
-    controller: NewChannelsListController
+    waitOn: function() {
+      return [
+        Meteor.subscribe('player')
+      ];
+    },
+    data: function() { return Player.findOne(); }
   });
   
-  this.route('newChannels', {
+  this.route('channels', {
     path: '/new/:channelsLimit?',
-    controller: NewChannelsListController
-  });
-  
-  this.route('bestChannels', {
-    path: '/best/:channelsLimit?',
-    controller: BestChannelsListController
+    controller: ChannelsListController
   });
   
   this.route('channelPage', {

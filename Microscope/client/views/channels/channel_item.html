@@ -6,6 +6,24 @@
       <p>
         {{#if ownChannel}}<a href="{{pathFor 'channelEdit'}}">Edit</a>{{/if}}
       </p>
+      <figure class="audioplayer" itemprop="track" itemscope="" itemtype="http://schema.org/MusicRecording">
+        <figcaption>
+          <div>Title<span itemprop="name">{{title}}</span></div>
+          <div class="type">Type<span>Internet radio</span></div>
+          <div class="artist">Artist<span itemprop="byArtist">N/A</span></div>
+          <div class="time">Time<span clsas="playbacktime">N/A</span></div>
+        </figcaption>
+        <meta itemprop="duration" content="PT2M29S"/>
+        <div class="fader">
+          <input type="range" min="0" max="1" step="any" value="1" orient="vertical" class="volumeSlider" oninput="this.parentNode.parentNode.getElementsByTagName('audio')[0].volume = this.value;"/>
+        </div>
+        <div class="playback">
+          <button class="ss-icon" id="playbutton" data-url="{{url}}">{{playPauseButtonTitle}}</button>
+          <!--<button type="button" class="ss-icon" onclick="if (this.parentNode.parentNode.getElementsByTagName('audio')[0].paused) { this.innerHTML='Pause'; this.parentNode.parentNode.getElementsByTagName('audio')[0].play(); } else { this.innerHTML='Play'; this.parentNode.parentNode.getElementsByTagName('audio')[0].pause(); }">Play</button>-->
+          <progress min="0" max="100" value="0" class="playhead"></progress>
+        </div>
+        <audio src="{{url}}" class="audiotrack" itemprop="audio"></audio>
+      </figure>
     </div>
   </div>
 </template>

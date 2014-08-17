@@ -43,3 +43,14 @@ if (Channels.find().count() === 0) {
   });
   
 }
+
+// Fixture data 
+if (Player.find().count() === 0) {
+  
+  Player.insert({
+    title: "NRK P3",
+    url: "http://lyd.nrk.no/nrk_radio_p3_mp3_h",
+    playing: false
+  });
+  
+}
