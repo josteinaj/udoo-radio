@@ -27,6 +27,14 @@ Meteor.methods({
     console.log("server/player.js: stop: "+player.url);
     console.log(player);
     return player;
+  },
+  'setVolume': function(volume) {
+    VLC.setVolume(volume);
+    console.log("server/player.js: setVolume: "+volume);
+    return VLC.getVolume();
+  },
+  'getVolume': function() {
+    return VLC.getVolume();
   }
 });
 

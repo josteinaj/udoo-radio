@@ -148,8 +148,8 @@ div#time {
     border-left: 1px solid #555;
 }*/
 input#volumeSlider {
-    -webkit-appearance: slider-vertical;
-    width: 35px;
+    /*-webkit-appearance: slider-vertical;*/
+    /*width: 35px;*/
 }
 figure#audioplayer button {
     width: 3rem;

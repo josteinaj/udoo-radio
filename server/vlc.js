@@ -44,6 +44,34 @@ VLC.stop = function (onExit) {
     }
 }
 
+/*VLC.setVolume = function (volume, onExit) {
+    console.log("VLC.setVolume");
+    if (VLC.proc && VLC.proc.proc) {
+        VLC.proc.proc.on('close', Meteor.bindEnvironment(function (out, err, code) {
+            VLC.setVolume(volume, onExit);
+        }));
+        VLC.stop(VLC.setVolume);
+        return;
+    }
+    VLC.proc = Exec.spawn('cvlc',
+                          [ volume ],
+                          {
+                            log: true,
+                            onExit: Meteor.bindEnvironment(function (out, err, code) {
+                                console.log("VLC.setVolume.Exec.spawn.onExit");
+                                VLC.proc = null;
+                                if (typeof onExit === "function") {
+                                    onExit();
+                                }
+                                VLC.emit('stop', volume);
+                            })
+                          }
+    );
+}
+
+VLC.getVolume = function () {
+}*/
+
 VLC._eventListeners = {};
 VLC._eventOnceListeners = {};
 VLC._eventMaxListeners = 10;
@@ -175,3 +203,24 @@ VLC.listenerCount = function (event) {
         }
     }
 }
+
+// volume listener
+Meteor.setInterval(
+    function () {
+        console.log("VLC volume listener");
+        VLC.proc = Exec.spawn('cvlc',
+                              [ volume ],
+                              {
+                                log: true,
+                                onExit: Meteor.bindEnvironment(function (out, err, code) {
+                                    console.log("VLC.setVolume.Exec.spawn.onExit");
+                                    VLC.proc = null;
+                                    if (typeof onExit === "function") {
+                                        onExit();
+                                    }
+                                    VLC.emit('stop', volume);
+                                })
+                              }
+        );
+    },
+    1000);

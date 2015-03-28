@@ -24,6 +24,7 @@ Template.player.events({
   'click #playbutton': function(e) {
     var player;
     e.preventDefault();
+    
     player = Player.findOne();
     console.log("client/views/player/player.js: click #playbutton");
     
@@ -46,12 +47,21 @@ Template.player.events({
   },
   
   'input #volumeSlider': function(e) {
-    var audioTrack = document.getElementById("audiotrack");
-    var volumeSlider = document.getElementById("volumeSlider");
-    
+    var player, volumeSlider;
     e.preventDefault();
     
-    audioTrack.volume = volumeSlider.value;
+    player = Player.findOne();
+    volumeSlider = document.getElementById("volumeSlider");
+    console.log("client/views/player/player.js: input #volumeSlider");
+    console.log("    volumeSlider.value: ", volumeSlider.value);
+    
+    Meteor.call(
+                'setVolume',
+                volumeSlider.value,
+                Meteor.bindEnvironment(function (error, result) {
+                    console.log("client/views/player/player.js: called 'setVolume'",error,result);
+                })
+    );
   }
   
 });
