@@ -1,2 +1,0 @@
-Template.channelPage.helpers({
-});
